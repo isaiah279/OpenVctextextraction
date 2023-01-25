@@ -1,0 +1,235 @@
+<html lang="en">
+  {% load static %}
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <!-- <link rel="stylesheet" href="{% static 'css/utilities.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
+    <title>tracker | you can test any item </title>
+</head>
+<body>
+   <!-- Navbar -->
+   <!-- <div class="navbar">
+    <div class="container flex">
+        <h1 class="logo">Elicit Product tracker</h1> -->
+        <!-- <nav>
+            <ul>
+              <li><a href="{% url 'home' %}">Home</a></li>
+              <li><a href="">Features</a></li>
+              <li><a href="{% url 'upload' %}">Upload Product</a></li>
+              <li><a href="{% url 'login' %}">Search Product</a></li>
+            </ul>
+        </nav> -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+          <!-- <nav class="navbar navbar-dark bg-primary"></nav> -->
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#"><h1 style="color: white;font-weight:thin;">Elicit Product tracker</h1></a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Logout</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Uploads
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                      <li><a class="dropdown-item" href="{% url 'oil-Products' %}">Oil</a></li>
+                      <li><a class="dropdown-item" href="{% url 'drugs-Products' %}">Drugs</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="{% url 'soap-Products' %}">Soaps</a></li>
+                      <li><a class="dropdown-item" href="{% url 'perfume-Products' %}">Aerosala</a></li>
+                      <li><a class="dropdown-item" href="{% url 'bread-Products' %}">Breads</a></li>
+                    </ul>
+                  </li>
+                 
+                </ul>
+                <form class="d-flex">
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+              </div>
+            </div>
+          </nav>
+    <!-- </div>
+</div> -->
+{% block content %}
+
+{% endblock %}  
+
+
+
+
+
+
+      <!-- Footer -->
+      <footer class="footer bg-dark py-5">
+        <div class="container grid grid-3">
+            <div>
+                <h1>Okech M Isayah
+                </h1>
+                <p>Copyright &copy; 2023</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'oil-Products' %}">products</a></li>
+                    <li><a href="">Important Links</a></li>
+                </ul>
+            </nav>
+
+
+
+            <div class="social">
+                <a href="#"><i class="fab fa-github fa-2x"></i></a>
+                <a href="#"><i class="fab fa-facebook fa-2x"></i></a>
+                <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
+                <a href="#"><i class="fab fa-twitter fa-2x"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+<style>
+  .footer .social a {
+    margin: 0 10px;
+  }
+  
+  .fa-github:hover {
+    color: #000000;
+  }
+  
+  .fa-facebook:hover {
+    color: #1773EA;
+  }
+  
+  .fa-instagram:hover {
+    color: #B32E87;
+  }
+  
+  .fa-twitter:hover {
+    color: #1C9CEA;
+  }
+  
+  /* Animations */
+  @keyframes slideInFromLeft {
+    0% {
+      transform: translateX(-100%);
+    }
+  
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes slideInFromRight {
+    0% {
+      transform: translateX(100%);
+    }
+  
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes slideInFromTop {
+    0% {
+      transform: translateY(-100%);
+    }
+  
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes slideInFromBottom {
+    0% {
+      transform: translateY(100%);
+    }
+  
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  /* Tablets and under */
+  @media (max-width: 768px) {
+    .grid,
+    .showcase .grid,
+    .stats .grid,
+    .cli .grid,
+    .cloud .grid,
+    .features-main .grid,
+    .docs-main .grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+    }
+  
+    .showcase {
+      height: auto;
+    }
+  
+    .showcase-text {
+      text-align: center;
+      margin-top: 40px;
+      animation: slideInFromTop 1s ease-in;
+    }
+  
+    .showcase-form {
+      justify-self: center;
+      margin: auto;
+      animation: slideInFromBottom 1s ease-in;
+    }
+  
+    .cli .grid > *:first-child {
+      grid-column: 1;
+      grid-row: 1;
+    }
+  
+    .features-head,
+    .features-sub-head,
+    .docs-head {
+      text-align: center;
+    }
+  
+    .features-head img,
+    .features-sub-head img,
+    .docs-head img {
+      justify-self: center;
+    }
+  
+    .features-main .grid > *:first-child,
+    .features-main .grid > *:nth-child(2) {
+      grid-column: 1;
+    }
+  }
+  
+  /* Mobile */
+  @media (max-width: 500px) {
+    .navbar {
+      height: 110px;
+    }
+  
+    .navbar .flex {
+      flex-direction: column;
+    }
+  
+    .navbar ul {
+      padding: 10px;
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    /* .showcase-form {
+      width: 300px;
+    } */
+  }
+</style>
+</html>

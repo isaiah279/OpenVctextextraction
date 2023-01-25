@@ -1,0 +1,77 @@
+{% extends 'trackerApp/base.html'%}
+{% block content %}
+  <div class="titlemessage">
+    <a href="{% url 'oilUploading' %}">Upload Oil Product</a>
+    </div>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<table class="table"style="width:70%";>
+<div class="messages" style="color:Yellow ;text-align:center;">
+  {% for msg in messages %}
+  
+  {{msg}}
+
+  {% endfor %}
+</div>
+  <tr>
+    <th class="thead-dark">Product</th>
+    <th class="thead-dark">Description</th>
+    <th class="thead-dark"style="text-align:left ;">Effect</th>
+  </tr>
+  {% for oilCont in displayOil %}
+  <tr>
+    <td>
+      <div class="imagecontainer">
+        <img style="width:60px"src="{{ oilCont.oilPhoto.url }}">
+      </div><br>
+      <span><small>created: {{oilCont.created|timesince}},ago</small></span><br>
+      <span ><small>updated:{{oilCont.updated|timesince}},ago</small></span>
+    </td>
+      <td>
+          <p >{{ oilCont.name }}</p>
+          <p >{{ oilCont.description1 }}</p>
+          <p >{{ oilCont.description2 }}</p>
+      </td>
+      <td><p style="text-align:left;">{{ oilCont.description3 }}</p></td>
+    </tr>
+  </div>
+  {% endfor %}
+</table>
+<style>
+  body{
+    background-color: rgb(71, 11, 11);
+  }
+  table{
+    padding-bottom: 50px;
+  }
+  table.imagecontainer{
+    max-width: 15%;
+    max-height:5%;
+  }
+  table{
+    align-items: center;
+    width: 200px;
+    margin:auto;
+    background-color:rgb(175, 95, 95);
+    padding-top:200px;
+  }
+  .titlemessage{
+    text-align: center;
+    padding-top: 20px;
+  }
+.titlemessage a{
+text-decoration: none;
+color: brown;
+text-align: center;
+margin:0px;
+}
+.titlemessage a:hover{
+
+padding: 2px;
+border: 1px solid green;
+}
+   </style>
+{% endblock %}
+
+      
+      
+        

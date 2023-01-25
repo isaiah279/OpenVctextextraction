@@ -1,0 +1,32 @@
+{% extends 'trackerApp/base.html'%}
+{% block content %}
+<h3 style="text-align: center;">Drugs Content</h3>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<table class="table" style="width:70%;margin:auto;background-color:red;padding-top:200px;">
+  <tr>
+    <th class="thead-dark">Product</th>
+    <th class="thead-dark">Description</th>
+    <th class="thead-dark"style="text-align:left ;">Effect</th>
+  </tr>
+  {% for drugCont in displayDrugs %}
+  <tr>
+    <td>
+      <div class="imagecontainer">
+        <img src="{{ drugCont.drugpicture.url }}">
+        
+      </div><br>
+      <span><small>created: {{drugCont.created|timesince}},ago</small></span><br>
+        <span ><small>updated:{{drugCont.updated|timesince}},ago</small></span>
+    </td>
+      <td>
+          <p >{{ drugCont.drugname }}</p>
+          <p >{{ drugCont.description1 }}</p>
+          <p >{{ drugCont.description2 }}</p>
+      </td>
+      <td><p style="text-align:left ;">{{ drugCont.description3 }}</p></td>
+    </tr>
+  </div>
+  {% endfor %}
+</table>
+  <h5 style="text-align:center;">This is <s>the end</s>@2023</h5>
+{% endblock %}
