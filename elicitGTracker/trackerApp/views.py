@@ -14,7 +14,6 @@ def login(request):
     return render(request,'trackerApp/login.html')
 def home(request):
     return render(request,'trackerApp/home.html')
-
 def oilProducts(request):
     displayOil=OilModel.objects.all()
     return render(request,'trackerApp/oil.html',{'displayOil':displayOil})
@@ -52,7 +51,7 @@ def oiluploadView(request):
             return redirect('/oil')
         else:
             oil_data.save()
-            messages.success(request,'successfully saved')
+            messages.success(request,'successfully saved to the')
             return redirect('/oil')
     return render(request,'trackerApp/uploadings/oilUpload.html')
     
