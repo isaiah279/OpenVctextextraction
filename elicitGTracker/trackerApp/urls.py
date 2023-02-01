@@ -13,12 +13,17 @@ urlpatterns = [
     path('soap/', views.soapProducts, name='soap-Products'),
 
 
-    path('upload/', views.upload, name='upload'),
+    path('uploads/', views.upload, name='upload'),
     
     path('oilUploading/', views.oiluploadView, name='oilUploading'),
+    path('drugsUploading/', views.oiluploadView, name='drugsUploading'),
+    path('breadUploading/', views.oiluploadView, name='breadUploading'),
+    path('soapUploading/', views.oiluploadView, name='soapUploading'),
+    path('aerosalUploading/', views.aerosaluploadView, name='aerosalUploading'),
     
     
-    path('registration/', views.registration, name='registration'),
+    path('registration/', views.user_register, name='registration'),
+ 
     path('login/', views.login, name='login'),
     # path('employee/', views.employee, name='employee'),
 ]

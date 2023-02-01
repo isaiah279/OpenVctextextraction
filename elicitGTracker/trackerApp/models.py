@@ -1,9 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.contrib.auth.models import AbstractUser
+# UserModel(AbstracteUser):
 # Create your models here.
 # class Users(models.Model):
 #     names=models.CharField(max_length=50)
+
+
 class OilModel(models.Model):
     # names=models.OneToOneField(User,on_delete=models.CASCADE)
     name=models.CharField(max_length=50)
