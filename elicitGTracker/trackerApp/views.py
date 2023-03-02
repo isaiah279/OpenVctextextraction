@@ -86,20 +86,10 @@ def user_register(request):
                 recipient=userEmail
                 #fromEmail=settings.EMAIL_HOST_USER
                 email_from ='isaiahmboya9@gmail.com'
-                
                 recipient=request.POST['email']
-                
-
-                
                 message="You have registered Successfully registered"
-                send_mail(
-                    subject,
-                    message,
-                    email_from,
-                    recipient_list=[recipient],
-                )
+                send_mail( subject,message,email_from,  recipient_list=[recipient],)
                 user.save()
-               
                 # Login the user
                 # login( user)
                 # redirect to accounts page:
@@ -133,7 +123,20 @@ def logout_request(request):
 	return redirect("home")
     
 def home(request):
-    return render(request,'trackerApp/home.html')
+    trackingProgress=TrackingInProgress.objects.all()
+    displayOil_Count=OilModel.objects.all().count()
+    displayBread_count=BreadModels.objects.all().count()
+    displayAerosal_count=AerosalModels.objects.all().count()
+    displayDrugs_count=DrugsModels.objects.all().count()
+    print(displayBread_count)
+    uploaded_senarios=displayOil_Count+displayBread_count+displayAerosal_count+displayDrugs_count
+    return render(request,'trackerApp/home.html',{'displayOil_Count':displayOil_Count,
+                                                  'displayBread_count':displayBread_count,
+                                                   'displayAerosal_count':displayAerosal_count,
+                                                   'displayDrugs_count':displayDrugs_count,
+                                                   'uploaded_senarios':uploaded_senarios,
+                                                   'trackingProgress':trackingProgress
+                                                  })
 ###############
 def search_product(request):
     """ search function  """
@@ -146,29 +149,30 @@ def search_product(request):
 ###############
 @login_required(login_url='login')
 def oilProducts(request):
-   
     displayOil=OilModel.objects.all()
-    return render(request,'trackerApp/oil.html',{'displayOil':displayOil})
+    displayOilConting=OilModel.objects.all().count()
+    return render(request,'trackerApp/oil.html',{'displayOil':displayOil,'displayOilConting':displayOilConting})
 @login_required(login_url='login')
 def drugsProducts(request):
     displayDrugs=DrugsModels.objects.all()
+    
     return render(request,'trackerApp/drugs.html',{'displayDrugs':displayDrugs})
 @login_required(login_url='login')
 def perfumeProducts(request):
     displayAerosal=AerosalModels.objects.all()
+    
     
     return render(request,'trackerApp/perfume.html',{'displayAerosal':displayAerosal})
 @login_required(login_url='login')
 def breadProducts(request):
     
     displayBread=BreadModels.objects.all()
-    
     return render(request,'trackerApp/bread.html',{'displayBread':displayBread})
 @login_required(login_url='login')
 def soapProducts(request):
     displaySoap=SoaplModels.objects.all()
-
-    return render(request,'trackerApp/soap.html',{'displaySoap':displaySoap})
+    displaySoap_count=SoaplModels.objects.all().count()
+    return render(request,'trackerApp/soap.html',{'displaySoap':displaySoap,'displaySoap_count':displaySoap_count})
 @login_required(login_url='login')
 def upload(request):
     oilIdViewed=OilModel.objects.all()
@@ -177,42 +181,93 @@ def upload(request):
     aerosalIdViewed=AerosalModels.objects.all()
     breadlIdViewed=BreadModels.objects.all()
     
-    upload_count=OilModel.objects.count()
+    # counts
+    
+    
+    
+    
+    
     return render(request,'trackerApp/upload.html',{'oilIdViewed':oilIdViewed,
                                                     'drugIdViewed':drugIdViewed,
                                                     'soapIdViewed':soapIdViewed,
                                                     'aerosalIdViewed':aerosalIdViewed,
-                                                    'breadlIdViewed':breadlIdViewed,
-                                                    'upload_count':upload_count,
+                                                    'breadlIdViewed':breadlIdViewed,        
                                                     })
     # https://djcheatsheet.github.io/sheet/reg_with_mail_confirmation.html
     # https://dev.to/yahaya_hk/password-reset-views-in-django-2gf2
-    
+
 def oiluploadView(request):
     if request.method=="POST":
-        pytesseract = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-     
+        # pytesseract = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
         productnamec=request.POST['productname']
         description1c=request.POST['description1']
         description2c=request.POST['description2']
         oilPhotoc=request.POST['filename']
+        # uploadimage =request.FILES['filename']
+        # print(type(pytesseract.image_to_string(Image.open(oilPhotoc))))
         description3c=request.POST['quantity'] 
-        # img=Image.open(oilPhotoc,'r')       
+        
+        
+        # fs=FileSystemStorage()
+        # filename=fs.save(oilPhotoc.filename,oilPhotoc)
+        
+        # ulpoaded_file_path=os.path.join(settings.MEDIA_ROOT, filename)
+        # text=pytesseract.image_to_string(ulpoaded_file_path)
+        # print(text)
+        # img=Image.open(oilPhotoc)       
         # text = pytesseract.image_to_string(img)
+        # print(f"Texts are here {text}")
         # substituted_phrase = text.replace(description2c,text )
         # print(text[:-1])
+       
+        
         oil_data=OilModel(name=productnamec,description1=description1c,description2=description2c,description3=description3c,oilPhoto=oilPhotoc)
         # Trial
         # end trial
+        messages_listed=[productnamec,description1c,description2c]
+        email_from= request.user.email
+        
         confirm_data = OilModel.objects.filter(name=productnamec).exists()
         if confirm_data:
-            messages.success(request,"The product already exists")
+            messages.success(request,"The product not advaisable for use")
+            subject="REPORTED NICE CASE from"
+            # send email to admin
+           
+            recipient_Admin='isaiahmboya9@gmail.com'
+            message="Product Name :" + productnamec +"\n\n\n" + "DESCRIPTIONS:" +"\n"*3 +"1)." + description1c +"\n"*2 + "2)."+ description2c + "\n"*4 + "From :" + email_from
+            send_mail( subject,message,email_from,recipient_list=[recipient_Admin])
+            settings.EMAIL_COUNT+=1
+            ReportedCases=settings.EMAIL_COUNT
+            # Still have
+            ReportedCases={'ReportedCases':ReportedCases}
             return redirect('/oil')
         else:
+            oilPhotoc=request.POST['filename']
+            
+            # print(type(pytesseract.image_to_string(Image.open(oilPhotoc))))
             oil_data.save()
+            
+            image = oilPhotoc
+            # image = image.name
+            # path = settings.MEDIA_ROOT
+            # pathz = path + "/image_uploaded/" + image
+
+            text = pytesseract.image_to_string(Image.open(image))
+            print(type(pytesseract.image_to_string(Image.open('image_uploaded'+oilPhotoc)))) # =====> add line
+            # text = text.encode("ascii", "ignore")
+            # text = text.decode()
+            print(text)
+
+            # Summary (0.1% of the original content).
+            # summarized_text = summarize(text, ratio=0.1)
+                # os.remove(pathz)
+                
+            
             messages.success(request,'successfully saved to the')
             return redirect('/oil')
     return render(request,'trackerApp/uploadings/oilUpload.html')
+
+
 def drugsuploadView(request):
     if request.method=="POST":
         productnamec=request.POST['productname']
@@ -240,33 +295,19 @@ def aerosaluploadView(request):
 
 def restrictedView(request):
     restricted_goods=RestrictedGModels.objects.all()
-    resticted_count=RestrictedGModels.objects.count()
-    return render(request,'trackerApp/uploadings/restricted.html',{'restricted_goods':restricted_goods,'resticted_count':resticted_count})
+    
+    return render(request,'trackerApp/uploadings/restricted.html',{'restricted_goods':restricted_goods})
 
-# def password_reset_request(request):
-# 	if request.method == "POST":
-# 		password_reset_form = PasswordResetForm(request.POST)
-# 		if password_reset_form.is_valid():
-# 			data = password_reset_form.cleaned_data['email']
-# 			associated_users = User.objects.filter(Q(email=data))
-# 			if associated_users.exists():
-# 				for user in associated_users:
-# 					subject = "Password Reset Requested"
-# 					email_template_name = "trackerApp/accounts/password_reset_email.txt"
-# 					c = {
-# 					"email":user.email,
-# 					'domain':'127.0.0.1:8000',
-# 					'site_name': 'Website',
-# 					"uid": urlsafe_base64_encode(force_bytes(user.pk)),
-# 					"user": user,
-# 					'token': default_token_generator.make_token(user),
-# 					'protocol': 'http',
-# 					}
-# 					email = render_to_string(email_template_name, c)
-# 					try:
-# 						send_mail(subject, email, 'isaiahmboya9@gmail.com' , [user.email], fail_silently=False)
-# 					except BadHeaderError:
-# 						return HttpResponse('Invalid header found.')
-# 					return redirect ("/password_reset/done/")
-# 	password_reset_form = PasswordResetForm()
-# 	return render(request=request, template_name="trackerApp/accounts/password_reset.html", context={"password_reset_form":password_reset_form})
+# def count_files(request):
+#     numberRepotedOil =OilModel.objects.count()
+#     return render(request, 'home.html', {'numberRepotedOil': numberRepotedOil})
+#  Document.objects.count()
+def search_itemsV(request):
+    if request.method=="POST":
+        searched=request.POST['searched']
+        product_searched=OilModel.objects.filter(name=searched)
+        return render(request,'trackerApp/search_items.html',{"searched":searched,'product_searched':product_searched})
+    else:
+        return render(request,'trackerApp/search_items.html',{})
+    
+    
